@@ -28,7 +28,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/loginPage", "/users", "/register").permitAll()
+		.antMatchers("/loginPage", "/users", "/register", "/registerPage", "/scripts/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.defaultSuccessUrl("/users")

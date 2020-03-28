@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Register</title>
+	</head>
+	<body>
+		<form th:action="@{/register}" method="post">
+			<label for="email">Email:</label>
+			<input id="email" type="text" />
+			<label for="username">Username:</label>
+			<input id="username" type="text" />
+			<label for="password">Password</label>
+			<input id="password" type="password" />
+			<label for="repeatPassword">Repeat password:</label>
+			<input id="repeatPassword" type="password" />
+			<button id="registerButton" type="button">Register</button>
+		</form>
+		<script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+		<script type="text/javascript" src="/scripts/register.js"></script>
+	</body>
+</html>
