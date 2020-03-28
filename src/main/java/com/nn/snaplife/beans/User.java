@@ -12,8 +12,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "account")
+@JsonIgnoreProperties(value = {"password", "permission"}, allowSetters = true)
 public class User {
 
 	@Id
