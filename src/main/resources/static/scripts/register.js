@@ -39,9 +39,9 @@ $registerButton.click(function () {
 			dataType: "json",
 			data: data
 		}).done(function (data) {
-			console/log(data);
+			console.log(data);
 		}).fail(function (data) {
-			console/log(data);
+			console.log(data);
 		});
 	}
 });

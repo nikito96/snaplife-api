@@ -1,35 +1,39 @@
 package com.nn.snaplife.controllers;
 
-import java.util.List;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.nn.snaplife.beans.User;
-import com.nn.snaplife.repositories.UserRepository;
+import com.nn.snaplife.beans.UserService;
+import com.nn.snaplife.exceptions.PasswordViolationException;
 
 @RestController
 public class UserController {
-
-	private UserRepository userRepository;
+	
+	private UserService userService;
 	
 	@Autowired
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-	
-	@GetMapping("/users")
-	public List<User> users() {
-		List<User> users = userRepository.findAll();
-		return users;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 	
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody User user){
-		User registeredUser = userRepository.save(user);
-		return ResponseEntity.ok(registeredUser);
+		try {
+			User registeredUser = userService.register(user);
+			return ResponseEntity.ok(registeredUser);
+		} catch (PasswordViolationException | ConstraintViolationException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 }

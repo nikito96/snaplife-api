@@ -30,7 +30,6 @@ public class User {
 	@Size(min = 10, max = 30)
 	private String email;
 	@NotEmpty
-	@Size(min = 8, max = 30)
 	private String password;
 	@Column(length = 255)
 	private String info;
@@ -76,5 +75,11 @@ public class User {
 	}
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+	public Permission getPermission() {
+		return permission;
+	}
+	public void setPermission(Permission permission) {
+		this.permission = permission;
 	}
 }
