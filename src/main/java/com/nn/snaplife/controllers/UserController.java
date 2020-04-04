@@ -25,15 +25,16 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody User user){
+		User registeredUser = null;
+		
 		try {
-			User registeredUser = userService.register(user);
-			return ResponseEntity.ok(registeredUser);
-		} catch (PasswordViolationException | ConstraintViolationException e) {
+			registeredUser = userService.register(user);
+		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
+		
+		return ResponseEntity.ok(registeredUser);
 	}
 }

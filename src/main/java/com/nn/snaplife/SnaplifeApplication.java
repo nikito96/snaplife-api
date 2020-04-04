@@ -19,9 +19,4 @@ public class SnaplifeApplication {
 	public PasswordEncoder passwordEcnEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-//	@Bean
-//	public UserService userService() {
-//		return new UserService();
-//	}
 }

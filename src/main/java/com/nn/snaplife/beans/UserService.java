@@ -33,7 +33,7 @@ public class UserService {
 		
 		String password = this.user.getPassword();
 		
-		if (password.length() < 8 && password.length() > 30) {
+		if (password.length() < 8 || password.length() > 30) {
 			throw new PasswordViolationException("Password should be between 8 and 40 symbols!");
 		}
 		
