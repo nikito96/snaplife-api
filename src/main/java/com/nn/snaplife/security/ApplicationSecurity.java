@@ -28,7 +28,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.cors().and()
 		.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/loginPage", "/users", "/register", "/registerPage", "/scripts/**").permitAll()
+		.antMatchers("/loginPage", "/appLogin", "/users", "/register", "/registerPage", "/scripts/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.defaultSuccessUrl("/users")
@@ -37,7 +37,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
 		auth.userDetailsService(applicationDetailsService).passwordEncoder(passwordEncoder);
 	}
 	

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.nn.snaplife.beans.LoginResponse;
+
 @ControllerAdvice
 public class ExceptionAdvicer {
 
@@ -30,5 +32,16 @@ public class ExceptionAdvicer {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	String generalExceptionHandler(Exception e) {
 		return e.getMessage();
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(BadCredentialsException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	LoginResponse badCredentialsExceptionHandler(Exception e) {
+		LoginResponse loginResponse = new LoginResponse();
+		loginResponse.setSuccess(false);
+		loginResponse.setMessage(e.getMessage());
+		loginResponse.setUser(null);
+		return loginResponse;
 	}
 }
