@@ -1,0 +1,8 @@
+security:
+  oauth2:
+    client:
+      client-id: android
+      client-secret: androidsecret
+      access-token-validity-seconds: 3600
+      scope: read,write
+      authorized-grant-types: authorization_code,refresh_token,password,client_credentials

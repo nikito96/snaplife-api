@@ -26,6 +26,7 @@ public class ApplicationDetailsService implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("User with email " + email + "does not exists!");
 		}
+		
 		return new UserPrincipal(user);
 	}
 
