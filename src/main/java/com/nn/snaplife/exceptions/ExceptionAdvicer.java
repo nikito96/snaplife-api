@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.nn.snaplife.beans.LoginResponse;
+import com.nn.snaplife.beans.responses.RequestResponse;
+import com.nn.snaplife.beans.responses.Response;
 
 @ControllerAdvice
 public class ExceptionAdvicer {
@@ -16,32 +17,40 @@ public class ExceptionAdvicer {
 	@ResponseBody
 	@ExceptionHandler(PasswordViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	String passwordValidationHandler(PasswordViolationException e) {
-		return e.getMessage();
+	Response passwordValidationHandler(PasswordViolationException e) {
+		RequestResponse response = new RequestResponse();
+		response.setSuccess(false);
+		response.setMessage(e.getMessage());
+		return response;
 	}
 	
 	@ResponseBody
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	String constraintValidationHandler(ConstraintViolationException e) {
-		return e.getMessage();
+	Response constraintValidationHandler(ConstraintViolationException e) {
+		RequestResponse response = new RequestResponse();
+		response.setSuccess(false);
+		response.setMessage(e.getMessage());;
+		return response;
 	}
 	
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	String generalExceptionHandler(Exception e) {
-		return e.getMessage();
+	Response generalExceptionHandler(Exception e) {
+		RequestResponse response = new RequestResponse();
+		response.setSuccess(false);
+		response.setMessage(e.getMessage());
+		return response;
 	}
 	
 	@ResponseBody
 	@ExceptionHandler(BadCredentialsException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	LoginResponse badCredentialsExceptionHandler(Exception e) {
-		LoginResponse loginResponse = new LoginResponse();
-		loginResponse.setSuccess(false);
-		loginResponse.setMessage(e.getMessage());
-		loginResponse.setUser(null);
-		return loginResponse;
+	Response badCredentialsExceptionHandler(Exception e) {
+		RequestResponse response = new RequestResponse();
+		response.setSuccess(false);
+		response.setMessage(e.getMessage());
+		return response;
 	}
 }

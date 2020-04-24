@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +26,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	private UserRepository userRepository;
 	private PermissionRepository permissionRepository;
-	private AuthenticationProvider authAuthenticationProvider;
+	private AuthenticationManager authenticationManager;
 	
 	public UserService() {
 		
@@ -34,11 +35,11 @@ public class UserService {
 	@Autowired
 	public UserService(PasswordEncoder passwordEncoder,
 			UserRepository userRepository, PermissionRepository permissionRepository,
-			AuthenticationProvider authAuthenticationProvider) {
+			AuthenticationManager authenticationManager) {
 		this.passwordEncoder = passwordEncoder;
 		this.userRepository = userRepository;
 		this.permissionRepository = permissionRepository;
-		this.authAuthenticationProvider = authAuthenticationProvider;
+		this.authenticationManager = authenticationManager;
 	}
 	
 	public User register(User user) throws PasswordViolationException {
@@ -65,7 +66,7 @@ public class UserService {
 		UsernamePasswordAuthenticationToken authToken =
 				new UsernamePasswordAuthenticationToken(email, password);
 		
-		Authentication auth = this.authAuthenticationProvider.authenticate(authToken);
+		Authentication auth = this.authenticationManager.authenticate(authToken);
 		
 		if (auth == null) {
 			throw new BadCredentialsException("Wrong login input!");

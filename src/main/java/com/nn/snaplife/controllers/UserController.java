@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nn.snaplife.beans.LoginResponse;
 import com.nn.snaplife.beans.User;
 import com.nn.snaplife.beans.UserService;
+import com.nn.snaplife.beans.responses.UserResponse;
+import com.nn.snaplife.beans.responses.Response;
 import com.nn.snaplife.exceptions.BadCredentialsException;
 
 @RestController
@@ -24,19 +25,24 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<User> register(@RequestBody User user)
+	public ResponseEntity<Response> register(@RequestBody User user)
 			throws Exception {
 		User registeredUser = userService.register(user);
 		
-		return ResponseEntity.ok(registeredUser);
+		UserResponse registrationResponse = new UserResponse();
+		registrationResponse.setSuccess(true);
+		registrationResponse.setMessage("Registration successful!");
+		registrationResponse.setUser(registeredUser);
+		
+		return ResponseEntity.ok(registrationResponse);
 	}
 	
 	@PostMapping("/appLogin")
-	public ResponseEntity<LoginResponse> login(HttpServletRequest req, @RequestBody User user)
+	public ResponseEntity<Response> login(HttpServletRequest req, @RequestBody User user)
 			throws Exception {
 		User loggedUser = this.userService.login(req, user);
 		
-		LoginResponse loginResponse = new LoginResponse();
+		UserResponse loginResponse = new UserResponse();
 		loginResponse.setSuccess(true);
 		loginResponse.setMessage("Login successful!");
 		loginResponse.setUser(loggedUser);

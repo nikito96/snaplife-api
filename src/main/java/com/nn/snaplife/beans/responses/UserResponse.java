@@ -1,6 +1,8 @@
-package com.nn.snaplife.beans;
+package com.nn.snaplife.beans.responses;
 
-public class LoginResponse {
+import com.nn.snaplife.beans.User;
+
+public class UserResponse implements Response {
 	
 	private boolean success;
 	private String message;
