@@ -35,7 +35,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers("/loginPage", "/appLogin", "/users", "/register", "/registerPage", "/scripts/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
-		.defaultSuccessUrl("/users")
+		.defaultSuccessUrl("/username")
 		.and().logout().permitAll();
 	}
 

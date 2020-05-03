@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
-import com.nn.snaplife.exceptions.BadCredentialsException;
 import com.nn.snaplife.exceptions.PasswordViolationException;
 import com.nn.snaplife.repositories.PermissionRepository;
 import com.nn.snaplife.repositories.UserRepository;
@@ -59,7 +57,7 @@ public class UserService {
 		return registeredUser;
 	}
 	
-	public User login(HttpServletRequest req, User user) throws BadCredentialsException {
+	public User login(HttpServletRequest req, User user) {
 		String email = user.getEmail();
 		String password = user.getPassword();
 		
@@ -67,10 +65,6 @@ public class UserService {
 				new UsernamePasswordAuthenticationToken(email, password);
 		
 		Authentication auth = this.authenticationManager.authenticate(authToken);
-		
-		if (auth == null) {
-			throw new BadCredentialsException("Wrong login input!");
-		}
 		
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		securityContext.setAuthentication(auth);

@@ -1,9 +1,12 @@
 package com.nn.snaplife.controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +15,6 @@ import com.nn.snaplife.beans.User;
 import com.nn.snaplife.beans.UserService;
 import com.nn.snaplife.beans.responses.UserResponse;
 import com.nn.snaplife.beans.responses.Response;
-import com.nn.snaplife.exceptions.BadCredentialsException;
 
 @RestController
 public class UserController {
@@ -48,5 +50,10 @@ public class UserController {
 		loginResponse.setUser(loggedUser);
 		
 		return ResponseEntity.ok(loginResponse);
+	}
+	
+	@GetMapping("/username")
+	public String currentUsername(Principal principal) {
+		return principal.getName();
 	}
 }
