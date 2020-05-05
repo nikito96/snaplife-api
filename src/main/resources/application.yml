@@ -6,3 +6,6 @@ security:
       access-token-validity-seconds: 3600
       scope: read,write
       authorized-grant-types: authorization_code,refresh_token,password,client_credentials
+    resource:
+      jwk:
+        key-set-uri: http://localhost::8080/.well-known/jwks.json
